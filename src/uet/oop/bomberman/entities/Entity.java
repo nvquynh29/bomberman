@@ -1,11 +1,9 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.level.Coordinates;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
@@ -16,27 +14,15 @@ public abstract class Entity {
 
     protected Image img;
 
+    public Entity() {
+
+    }
+
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity( int xUnit, int yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Image getImg() {
@@ -47,8 +33,68 @@ public abstract class Entity {
         this.img = img;
     }
 
-    public void render(GraphicsContext gc) {
-        gc.drawImage(img, x, y);
+    public int getX() {
+        return x;
     }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getMaxX() {
+        return x + Sprite.SCALED_SIZE;
+    }
+
+    public int getMaxY() {
+        return y + Sprite.SCALED_SIZE;
+    }
+
+    public int getXTile() {
+        return Coordinates.pixelToTile(x + Sprite.SCALED_SIZE / 2);
+    }
+
+    public int getYTile() {
+        return Coordinates.pixelToTile(y + Sprite.SCALED_SIZE / 2);
+    }
+
+    public void render(Screen screen) {
+        screen.getGraphicsContext().drawImage(img, x - screen.xOffset, y);
+    }
+
+
     public abstract void update();
+
+    public boolean intersectLeft(Entity other) {
+        boolean impactX = (x == other.getMaxX());
+        boolean intersectY = (other.getY() >= y && other.getY() < getMaxY())
+                             || (other.getMaxY() > y && other.getMaxY() <= getMaxY());
+        return impactX && intersectY;
+    }
+
+    public boolean intersectRight(Entity other) {
+        boolean impactX = (getMaxX() == other.getX());
+        boolean intersectY = (other.getY() >= y && other.getY() < getMaxY())
+                             || (other.getMaxY() > y && other.getMaxY() <= getMaxY());
+        return impactX && intersectY;
+    }
+
+    public boolean intersectUp(Entity other) {
+        boolean impactY = (y == other.getMaxY());
+        boolean intersectX = (other.getX() >= x && other.getX() < getMaxX())
+                || (other.getMaxX() > x && other.getMaxX() <= getMaxX());
+        return impactY && intersectX;
+    }
+
+    public boolean intersectDown(Entity other) {
+        boolean impactY = (getMaxY() == other.getY());
+        boolean intersectX = (other.getX() >= x && other.getX() < getMaxX())
+                || (other.getMaxX() > x && other.getMaxX() <= getMaxX());
+        return impactY && intersectX;
+    }
+
+    public boolean intersect(Entity other) {
+        return (intersectLeft(other) || intersectRight(other)
+                || intersectUp(other) || intersectDown(other));
+    }
+
 }
