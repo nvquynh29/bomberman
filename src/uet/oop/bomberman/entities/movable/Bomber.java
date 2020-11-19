@@ -217,15 +217,15 @@ public class Bomber extends Movable {
         else {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
-                    case 50: {
+                    case 24: {
                         img = Sprite.player_dead1.getFxImage();
                         break;
                     }
-                    case 25: {
+                    case 16: {
                         img = Sprite.player_dead2.getFxImage();
                         break;
                     }
-                    case 0: {
+                    case 8: {
                         img = Sprite.player_dead3.getFxImage();
                         break;
                     }

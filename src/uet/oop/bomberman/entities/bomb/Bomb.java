@@ -42,11 +42,52 @@ public class Bomb extends Entity {
     public void explosiveEffect() {
         for (int i = 0; i < explosions.length; ++i) {
             Explosion[] exp = explosions[i].getExplosions();
-            for (int j = 0; j < exp.length; ++j) {
-                Entity entity = BombermanGame.getEntity(exp[j].getX(), exp[j].getY());
-                if (entity instanceof Movable) {
-                    ((Movable) entity).kill();
+            collide(exp);
+        }
+    }
+
+    public void collide(Explosion[] exp) {
+        if (exp.length > 0) {
+            Explosion begin = exp[0];
+            Explosion end = exp[exp.length - 1];
+            switch (end.getDirection()) {
+                case 0: {
+                    for (Entity entity : BombermanGame.entities) {
+                        if (entity.getMaxY() > end.getY() && entity.getMaxY() < begin.getMaxY()
+                                && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
+                            ((Movable) entity).kill();
+                        }
+                    }
+                    break;
                 }
+                case 1: {
+                    for (Entity entity : BombermanGame.entities) {
+                        if (entity.getX() > begin.getX() && entity.getX() < end.getMaxX()
+                                && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
+                            ((Movable) entity).kill();
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    for (Entity entity : BombermanGame.entities) {
+                        if (entity.getY() > begin.getY() && entity.getY() < end.getMaxY()
+                                && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
+                            ((Movable) entity).kill();
+                        }
+                    }
+                    break;
+                }
+                case 3: {
+                    for (Entity entity : BombermanGame.entities) {
+                        if (entity.getMaxX() > end.getX() && entity.getMaxX() < begin.getMaxX()
+                                && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
+                            ((Movable) entity).kill();
+                        }
+                    }
+                    break;
+                }
+
             }
         }
     }

@@ -61,15 +61,15 @@ public class Balloom extends Enemy {
         else {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
-                    case 55: {
+                    case 18: {
                         img = Sprite.balloom_dead.getFxImage();
                         break;
                     }
-                    case 40: {
+                    case 12: {
                         img = Sprite.mob_dead1.getFxImage();
                         break;
                     }
-                    case 20: {
+                    case 6: {
                         img = Sprite.mob_dead2.getFxImage();
                         break;
                     }

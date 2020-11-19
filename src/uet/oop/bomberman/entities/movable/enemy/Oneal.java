@@ -9,14 +9,14 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Oneal extends Enemy {
 
     public Oneal(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img, 2, 200);
+        super(xUnit, yUnit, img, 1, 200);
         ai = new AIMedium(BombermanGame.player, this);
     }
 
 
     @Override
     public void kill() {
-
+        alive = false;
     }
 
     @Override
@@ -61,15 +61,15 @@ public class Oneal extends Enemy {
         else {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
-                    case 55: {
+                    case 18: {
                         img = Sprite.oneal_dead.getFxImage();
                         break;
                     }
-                    case 40: {
+                    case 12: {
                         img = Sprite.mob_dead1.getFxImage();
                         break;
                     }
-                    case 20: {
+                    case 6: {
                         img = Sprite.mob_dead2.getFxImage();
                         break;
                     }

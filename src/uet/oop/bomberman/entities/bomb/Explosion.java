@@ -6,6 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Explosion extends Entity {
     protected boolean last = false;  // ảnh cuối 1 hướng vụ nổ?
+    protected int direction;
 
     public Explosion(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -13,6 +14,7 @@ public class Explosion extends Entity {
 
     public Explosion(int x, int y, int direction, boolean last) {
         this(x, y, null);
+        this.direction = direction;
         switch (direction) {
             case 0: {
                 if (!last) {
@@ -47,6 +49,10 @@ public class Explosion extends Entity {
                 break;
             }
         }
+    }
+
+    public int getDirection() {
+        return direction;
     }
 
     @Override

@@ -7,7 +7,7 @@ public abstract class Movable extends Entity {
     protected int direction = -1;  //0 : up, 1 : right, 2 : down, 3 : left
     protected boolean alive = true;
     protected boolean moving = false;
-    protected int frameToDisapear = 60;
+    protected int frameToDisapear = 24;
 
     protected int MAX_STEP = 2;
 
