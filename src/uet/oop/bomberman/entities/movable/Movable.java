@@ -23,15 +23,9 @@ public abstract class Movable extends Entity {
 
     protected abstract void calculateMove();
 
-    protected abstract void move(int xm, int ym);
-
     public abstract void kill();
 
     protected abstract void afterKill();
-
-    protected abstract boolean canMove();
-
-    protected abstract boolean collide(Entity other);
 
     public void setAlive(boolean alive) {
         this.alive = alive;

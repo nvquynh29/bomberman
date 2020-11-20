@@ -53,36 +53,48 @@ public class Bomb extends Entity {
             switch (end.getDirection()) {
                 case 0: {
                     for (Entity entity : BombermanGame.entities) {
-                        if (entity.getMaxY() > end.getY() && entity.getMaxY() < begin.getMaxY()
+                        Movable e = (Movable) entity;
+                        if (entity.getMaxY() >= end.getY() && entity.getMaxY() <= begin.getMaxY() + Sprite.SCALED_SIZE
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
-                            ((Movable) entity).kill();
+                            if (e.isAlive()) {
+                                e.kill();
+                            }
                         }
                     }
                     break;
                 }
                 case 1: {
                     for (Entity entity : BombermanGame.entities) {
-                        if (entity.getX() > begin.getX() && entity.getX() < end.getMaxX()
+                        Movable e = (Movable) entity;
+                        if (entity.getX() >= begin.getX() - Sprite.SCALED_SIZE && entity.getX() <= end.getMaxX()
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
-                            ((Movable) entity).kill();
+                            if (e.isAlive()) {
+                                e.kill();
+                            }
                         }
                     }
                     break;
                 }
                 case 2: {
                     for (Entity entity : BombermanGame.entities) {
-                        if (entity.getY() > begin.getY() && entity.getY() < end.getMaxY()
+                        Movable e = (Movable) entity;
+                        if (entity.getY() >= begin.getY() - Sprite.SCALED_SIZE && entity.getY() <= end.getMaxY()
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
-                            ((Movable) entity).kill();
+                            if (e.isAlive()) {
+                                e.kill();
+                            }
                         }
                     }
                     break;
                 }
                 case 3: {
                     for (Entity entity : BombermanGame.entities) {
-                        if (entity.getMaxX() > end.getX() && entity.getMaxX() < begin.getMaxX()
+                        Movable e = (Movable) entity;
+                        if (entity.getMaxX() >= end.getX() && entity.getMaxX() <= begin.getMaxX() + Sprite.SCALED_SIZE
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
-                            ((Movable) entity).kill();
+                            if (e.isAlive()) {
+                                e.kill();
+                            }
                         }
                     }
                     break;

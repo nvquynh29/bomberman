@@ -194,35 +194,5 @@ public abstract class Enemy extends Movable {
             }
         }
     }
-
-    @Override
-    public void move(int xa, int ya) {
-//        y += ya;
-//        x += xa;
-    }
-
-    @Override
-    public boolean canMove() {
-        return true;
-    }
-
-    public boolean collide(Entity e) {
-        if(e instanceof DirectionalExplosion) {
-            kill();
-            return false;
-        }
-
-        if(e instanceof Bomber) {
-//            ((Bomber) e).kill();
-            return false;
-        }
-
-        if (e instanceof Wall) {
-            return true;
-        }
-
-        return false;
-    }
-
     protected abstract void chooseSprite();
 }

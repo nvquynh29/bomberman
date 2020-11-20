@@ -10,8 +10,9 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Movable {
-    private int speed = 8;
+    private int speed = 4;
     private int step = 0;
+    private final int allowDistance = 4;
 
     private Image images[][] = new Image[][]{
             {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()},
@@ -112,6 +113,13 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || entity instanceof Brick) {
                 if (entity.intersectLeft(this)) {
+                    if (y + allowDistance >= entity.getMaxY()) {
+                        y += allowDistance;
+                        break;
+                    } else if (getMaxY() - allowDistance <= entity.getY()) {
+                        y -= allowDistance;
+                        break;
+                    }
                     return false;
                 }
             }
@@ -129,6 +137,13 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || entity instanceof Brick) {
                 if (entity.intersectRight(this)) {
+                    if (y + allowDistance >= entity.getMaxY()) {
+                        y += allowDistance;
+                        break;
+                    } else if (getMaxY() - allowDistance <= entity.getY()) {
+                        y -= allowDistance;
+                        break;
+                    }
                     return false;
                 }
             }
@@ -146,6 +161,13 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || entity instanceof Brick) {
                 if (entity.intersectDown(this)) {
+                    if (getX() + allowDistance >= entity.getMaxX()) {
+                        x += allowDistance;
+                        break;
+                    } else if (getMaxX() - allowDistance <= entity.getX()) {
+                        x -= allowDistance;
+                        break;
+                    }
                     return false;
                 }
             }
@@ -163,6 +185,13 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || entity instanceof Brick) {
                 if (entity.intersectUp(this)) {
+                    if (getX() + allowDistance >= entity.getMaxX()) {
+                        x += allowDistance;
+                        break;
+                    } else if (getMaxX() - allowDistance <= entity.getX()) {
+                        x -= allowDistance;
+                        break;
+                    }
                     return false;
                 }
             }
@@ -186,27 +215,12 @@ public class Bomber extends Movable {
     }
 
     @Override
-    protected boolean canMove() {
-        return true;
-    }
-
-    @Override
-    public boolean collide(Entity other) {
-        return false;
-    }
-
-    @Override
     public void update() {
 
     }
 
     @Override
     protected void calculateMove() {
-
-    }
-
-    @Override
-    protected void move(int xm, int ym) {
 
     }
 

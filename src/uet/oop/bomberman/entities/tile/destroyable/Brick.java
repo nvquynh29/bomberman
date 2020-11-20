@@ -8,7 +8,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Brick extends Entity {
     private boolean destroyed = false;
-    private int frameToDisapear = 12;
+    private int frameToDisapear = 24;
 
     public Brick(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -32,15 +32,15 @@ public class Brick extends Entity {
         if (destroyed) {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
-                    case 8: {
+                    case 24: {
                         img = Sprite.brick_exploded.getFxImage();
                         break;
                     }
-                    case 4: {
+                    case 16: {
                         img = Sprite.brick_exploded1.getFxImage();
                         break;
                     }
-                    case 0: {
+                    case 8: {
                         img = Sprite.brick_exploded2.getFxImage();
                         break;
                     }
