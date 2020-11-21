@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.movable.Bomber;
 import uet.oop.bomberman.entities.movable.Movable;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -57,7 +58,10 @@ public class Bomb extends Entity {
                         if (entity.getMaxY() >= end.getY() && entity.getMaxY() <= begin.getMaxY() + Sprite.SCALED_SIZE
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
                             if (e.isAlive()) {
-                                e.kill();
+                                if (e instanceof Bomber) {
+                                    if (((Bomber) e).isStillAlive() == false) e.kill();
+                                }
+                                else e.kill();
                             }
                         }
                     }
@@ -69,7 +73,10 @@ public class Bomb extends Entity {
                         if (entity.getX() >= begin.getX() - Sprite.SCALED_SIZE && entity.getX() <= end.getMaxX()
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
                             if (e.isAlive()) {
-                                e.kill();
+                                if (e instanceof Bomber) {
+                                    if (((Bomber) e).isStillAlive() == false) e.kill();
+                                }
+                                else e.kill();
                             }
                         }
                     }
@@ -81,7 +88,10 @@ public class Bomb extends Entity {
                         if (entity.getY() >= begin.getY() - Sprite.SCALED_SIZE && entity.getY() <= end.getMaxY()
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
                             if (e.isAlive()) {
-                                e.kill();
+                                if (e instanceof Bomber) {
+                                    if (((Bomber) e).isStillAlive() == false) e.kill();
+                                }
+                                else e.kill();
                             }
                         }
                     }
@@ -93,7 +103,10 @@ public class Bomb extends Entity {
                         if (entity.getMaxX() >= end.getX() && entity.getMaxX() <= begin.getMaxX() + Sprite.SCALED_SIZE
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
                             if (e.isAlive()) {
-                                e.kill();
+                                if (e instanceof Bomber) {
+                                    if (((Bomber) e).isStillAlive() == false) e.kill();
+                                }
+                                else e.kill();
                             }
                         }
                     }

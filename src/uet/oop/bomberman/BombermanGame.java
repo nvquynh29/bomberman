@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.movable.Bomber;
-import uet.oop.bomberman.entities.movable.enemy.Balloom;
-import uet.oop.bomberman.entities.movable.enemy.Oneal;
+import uet.oop.bomberman.entities.movable.enemy.*;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
+import uet.oop.bomberman.entities.tile.powerup.*;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
@@ -31,6 +31,7 @@ public class BombermanGame extends Application {
     public static Bomber player;
     public static char[][] currentMap;
     public static int bombRadius = 1;
+    public static int bombRate = 1;
 
 
     private Group root;
@@ -105,11 +106,21 @@ public class BombermanGame extends Application {
                     player.moveRight();
                     break;
                 }
+                case B: {
+                    if (player.isDetonatorPower()) {
+                        for (Bomb bomb : bombs) {
+                            bomb.explode();
+                        }
+                    }
+                    break;
+                }
                 case SPACE: {
                     int xb = Coordinates.pixelToTile(player.getX() + Sprite.SCALED_SIZE / 2);
                     int yb = Coordinates.pixelToTile( player.getY() + Sprite.SCALED_SIZE / 2);
-                    Bomb bomb = new Bomb(xb, yb, Sprite.bomb.getFxImage());
-                    bombs.add(bomb);
+                    if (bombs.size() < bombRate) {
+                        Bomb bomb = new Bomb(xb, yb, Sprite.bomb.getFxImage());
+                        bombs.add(bomb);
+                    }
                     break;
                 }
             }
@@ -188,6 +199,24 @@ public class BombermanGame extends Application {
                         break;
                     }
 
+                    case '3' : {
+                        object = new Doll(i, j, Sprite.doll_left1.getFxImage());
+                        entities.add(object);
+                        break;
+                    }
+
+                    case '4' : {
+                        object = new Minvo(i, j, Sprite.minvo_left1.getFxImage());
+                        entities.add(object);
+                        break;
+                    }
+
+                    case '5' : {
+                        object = new Kondoria(i, j, Sprite.kondoria_left1.getFxImage());
+                        entities.add(object);
+                        break;
+                    }
+
                     case 's' : {
                         object = new Speed(i, j, Sprite.powerup_speed.getFxImage());
                         stillObjects.add(object);
@@ -196,6 +225,36 @@ public class BombermanGame extends Application {
 
                     case 'f' : {
                         object = new Flame(i, j, Sprite.powerup_flames.getFxImage());
+                        stillObjects.add(object);
+                        break;
+                    }
+
+                    case 'b' : {
+                        object = new Bombs(i, j, Sprite.powerup_bombs.getFxImage());
+                        stillObjects.add(object);
+                        break;
+                    }
+
+                    case 'o' : {
+                        object = new Bombpass(i, j, Sprite.powerup_bombpass.getFxImage());
+                        stillObjects.add(object);
+                        break;
+                    }
+
+                    case 'n' : {
+                        object = new Flamepass(i, j, Sprite.powerup_flamepass.getFxImage());
+                        stillObjects.add(object);
+                        break;
+                    }
+
+                    case 'w' : {
+                        object = new Wallpass(i, j, Sprite.powerup_wallpass.getFxImage());
+                        stillObjects.add(object);
+                        break;
+                    }
+
+                    case 'd' : {
+                        object = new Detonator(i, j, Sprite.powerup_detonator.getFxImage());
                         stillObjects.add(object);
                         break;
                     }

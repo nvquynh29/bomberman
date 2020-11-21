@@ -2,15 +2,13 @@ package uet.oop.bomberman.entities.movable.enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.movable.ai.AIMedium;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Oneal extends Enemy {
-
-    public Oneal(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img, 2, 200);
-        ai = new AIMedium(BombermanGame.player, this);
+public class Kondoria extends Enemy{
+    public Kondoria(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img, 1, 1000);
+        wallPass = true;
     }
 
 
@@ -29,25 +27,25 @@ public class Oneal extends Enemy {
         switch (step % MAX_STEP) {
             case 0: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right1.getFxImage();
+                    img = Sprite.kondoria_right1.getFxImage();
                 } else {
-                    img = Sprite.oneal_left1.getFxImage();
+                    img = Sprite.kondoria_left1.getFxImage();
                 }
                 break;
             }
             case 10: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right2.getFxImage();
+                    img = Sprite.kondoria_right2.getFxImage();
                 } else {
-                    img = Sprite.oneal_left2.getFxImage();
+                    img = Sprite.kondoria_left2.getFxImage();
                 }
                 break;
             }
             case 20: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right3.getFxImage();
+                    img = Sprite.kondoria_right3.getFxImage();
                 } else {
-                    img = Sprite.oneal_left3.getFxImage();
+                    img = Sprite.kondoria_left3.getFxImage();
                 }
                 break;
             }
@@ -62,7 +60,7 @@ public class Oneal extends Enemy {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
                     case 18: {
-                        img = Sprite.oneal_dead.getFxImage();
+                        img = Sprite.kondoria_dead.getFxImage();
                         break;
                     }
                     case 12: {

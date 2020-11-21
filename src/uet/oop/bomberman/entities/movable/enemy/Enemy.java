@@ -11,6 +11,7 @@ import uet.oop.bomberman.entities.movable.Bomber;
 import uet.oop.bomberman.entities.movable.Movable;
 import uet.oop.bomberman.entities.movable.ai.AI;
 import uet.oop.bomberman.entities.movable.ai.AILow;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -20,6 +21,7 @@ public abstract class Enemy extends Movable {
     protected int speed; //Speed should change on level transition
     protected AI ai;
     protected int step;
+    protected boolean wallPass = false;
     protected final int MAX_STEP = 30;  // 10 lan update thi thay anh 1 lan * 3 anh
 
     protected Image deadImg;
@@ -76,7 +78,15 @@ public abstract class Enemy extends Movable {
                         }
                     }
                     for (Entity entity : BombermanGame.stillObjects) {
-                        if (!(entity instanceof Grass)) {
+                        if (entity instanceof Brick) {
+                            if (!wallPass) {
+                                if (entity.intersectDown(this)) {
+                                    direction = ai.calculateDirection();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (!(entity instanceof Grass)) {
                             if (entity.intersectDown(this)) {
                                 direction = ai.calculateDirection();
                                 return;
@@ -109,7 +119,15 @@ public abstract class Enemy extends Movable {
                         }
                     }
                     for (Entity entity : BombermanGame.stillObjects) {
-                        if (!(entity instanceof Grass)) {
+                        if (entity instanceof Brick) {
+                            if (!wallPass) {
+                                if (entity.intersectLeft(this)) {
+                                    direction = ai.calculateDirection();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (!(entity instanceof Grass)) {
                             if (entity.intersectLeft(this)) {
                                 direction = ai.calculateDirection();
                                 return;
@@ -141,7 +159,15 @@ public abstract class Enemy extends Movable {
                         }
                     }
                     for (Entity entity : BombermanGame.stillObjects) {
-                        if (!(entity instanceof Grass)) {
+                        if (entity instanceof Brick) {
+                            if (!wallPass) {
+                                if (entity.intersectUp(this)) {
+                                    direction = ai.calculateDirection();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (!(entity instanceof Grass)) {
                             if (entity.intersectUp(this)) {
                                 direction = ai.calculateDirection();
                                 return;
@@ -173,7 +199,15 @@ public abstract class Enemy extends Movable {
                         }
                     }
                     for (Entity entity : BombermanGame.stillObjects) {
-                        if (!(entity instanceof Grass)) {
+                        if (entity instanceof Brick) {
+                            if (!wallPass) {
+                                if (entity.intersectRight(this)) {
+                                    direction = ai.calculateDirection();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (!(entity instanceof Grass)) {
                             if (entity.intersectRight(this)) {
                                 direction = ai.calculateDirection();
                                 return;

@@ -6,10 +6,9 @@ import uet.oop.bomberman.entities.movable.ai.AIMedium;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Oneal extends Enemy {
-
-    public Oneal(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img, 2, 200);
+public class Minvo extends Enemy{
+    public Minvo(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img, 2, 800);
         ai = new AIMedium(BombermanGame.player, this);
     }
 
@@ -29,25 +28,25 @@ public class Oneal extends Enemy {
         switch (step % MAX_STEP) {
             case 0: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right1.getFxImage();
+                    img = Sprite.minvo_right1.getFxImage();
                 } else {
-                    img = Sprite.oneal_left1.getFxImage();
+                    img = Sprite.minvo_left1.getFxImage();
                 }
                 break;
             }
             case 10: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right2.getFxImage();
+                    img = Sprite.minvo_right2.getFxImage();
                 } else {
-                    img = Sprite.oneal_left2.getFxImage();
+                    img = Sprite.minvo_left2.getFxImage();
                 }
                 break;
             }
             case 20: {
                 if (direction == 0 || direction == 1) {
-                    img = Sprite.oneal_right3.getFxImage();
+                    img = Sprite.minvo_right3.getFxImage();
                 } else {
-                    img = Sprite.oneal_left3.getFxImage();
+                    img = Sprite.minvo_left3.getFxImage();
                 }
                 break;
             }
@@ -62,7 +61,7 @@ public class Oneal extends Enemy {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
                     case 18: {
-                        img = Sprite.oneal_dead.getFxImage();
+                        img = Sprite.minvo_dead.getFxImage();
                         break;
                     }
                     case 12: {

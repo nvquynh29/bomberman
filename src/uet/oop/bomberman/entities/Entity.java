@@ -14,6 +14,8 @@ public abstract class Entity {
 
     protected Image img;
 
+    protected boolean removed = false;
+
     public Entity() {
 
     }
@@ -23,6 +25,14 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+    }
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void remove() {
+        removed = true;
     }
 
     public Image getImg() {
