@@ -30,6 +30,7 @@ public class Speed extends Powerup {
             BombermanGame.player.addPowerUp(this);
             remove();
             BombermanGame.stillObjects.remove(this);
+            System.out.println("removed");
         }
         screen.getGraphicsContext().drawImage(img, x, y);
     }

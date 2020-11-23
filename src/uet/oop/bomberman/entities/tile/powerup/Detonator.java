@@ -25,6 +25,7 @@ public class Detonator extends Powerup {
         if(BombermanGame.player.intersect(this)) {
             BombermanGame.player.addPowerUp(this);
             remove();
+            System.out.println("removed");
             BombermanGame.stillObjects.remove(this);
         }
         screen.getGraphicsContext().drawImage(img, x, y);

@@ -20,8 +20,10 @@ import uet.oop.bomberman.level.Coordinates;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class BombermanGame extends Application {
     
@@ -163,6 +165,8 @@ public class BombermanGame extends Application {
 
     public void loadMap(List<String> lines) {
         Entity object = null;
+        //store brick for randoming powerup + portal
+        ArrayList<Brick> bricks = new ArrayList<>(0);
         for (int j = 0; j < HEIGHT; ++j) {
             String line = lines.get(j);
             for (int i = 0; i < WIDTH; ++i) {
@@ -178,12 +182,7 @@ public class BombermanGame extends Application {
                     case '*' : {
                         object = new Brick(i, j, Sprite.brick.getFxImage());
                         stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'x' : {
-                        object = new Portal(i, j, Sprite.portal.getFxImage());
-                        stillObjects.add(object);
+                        bricks.add((Brick)object);
                         break;
                     }
 
@@ -217,48 +216,6 @@ public class BombermanGame extends Application {
                         break;
                     }
 
-                    case 's' : {
-                        object = new Speed(i, j, Sprite.powerup_speed.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'f' : {
-                        object = new Flame(i, j, Sprite.powerup_flames.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'b' : {
-                        object = new Bombs(i, j, Sprite.powerup_bombs.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'o' : {
-                        object = new Bombpass(i, j, Sprite.powerup_bombpass.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'n' : {
-                        object = new Flamepass(i, j, Sprite.powerup_flamepass.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'w' : {
-                        object = new Wallpass(i, j, Sprite.powerup_wallpass.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
-                    case 'd' : {
-                        object = new Detonator(i, j, Sprite.powerup_detonator.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
-
                     default: {
                         object = new Grass(i, j, Sprite.grass.getFxImage());
                         stillObjects.add(object);
@@ -267,8 +224,44 @@ public class BombermanGame extends Application {
                 }
             }
         }
+        random(bricks);
     }
+    public void random(ArrayList<Brick> bricks) {
+        Random rand = new Random();
+        Entity object;
+        ArrayList<Powerup> powerups = new ArrayList<>(0);
+        powerups.add(new Bombpass(0, 0, Sprite.powerup_bombpass.getFxImage()));
+        powerups.add(new Bombs(0, 0, Sprite.powerup_bombs.getFxImage()));
+        powerups.add(new Detonator(0,0, Sprite.powerup_detonator.getFxImage()));
+        powerups.add(new Flame(0, 0, Sprite.powerup_flames.getFxImage()));
+        powerups.add(new Flamepass(0, 0, Sprite.powerup_flamepass.getFxImage()));
+        powerups.add(new Speed(0, 0, Sprite.powerup_speed.getFxImage()));
+        powerups.add(new Wallpass(0, 0, Sprite.powerup_wallpass.getFxImage()));
+        //generate portal
+        int temp = rand.nextInt(bricks.size());
+        object = new Portal(bricks.get(temp).getX() / Sprite.SCALED_SIZE,
 
+                            bricks.get(temp).getY() / Sprite.SCALED_SIZE, Sprite.portal.getFxImage());
+        //portal o dau mang stillobjects de duoc render truoc
+        stillObjects.add(0, object);
+        bricks.remove(temp);
+
+        //generate item1;
+        int temp1 = rand.nextInt(7);
+        temp = rand.nextInt(bricks.size());
+        powerups.get(temp1).setCorodinate(bricks.get(temp).getX() , bricks.get(temp).getY());
+        //item 1 duoc dung thu 2 trong mang stillobjects
+        stillObjects.add(1, powerups.get(temp1));
+        powerups.remove(temp1);
+        bricks.remove(temp);
+
+        //generate item2;
+        int temp2 = rand.nextInt(6);
+        temp = rand.nextInt(bricks.size());
+        powerups.get(temp2).setCorodinate(bricks.get(temp).getX() , bricks.get(temp).getY());
+        //item 1 duoc dung thu 3 trong mang stillobjects
+        stillObjects.add(2, powerups.get(temp2));
+    }
     public static Entity getEntity(int x, int y) {
         for (Entity entity : entities) {
             if (entity.getX() == x && entity.getY() == y) {

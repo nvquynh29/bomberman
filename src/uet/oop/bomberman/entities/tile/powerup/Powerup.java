@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
 public abstract class Powerup extends Entity {
+
     protected boolean active = false;
 //    protected int level;
 
@@ -29,4 +30,8 @@ public abstract class Powerup extends Entity {
 //    public void setLevel(int level) {
 //        this.level = level;
 //    }
+    public void setCorodinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
