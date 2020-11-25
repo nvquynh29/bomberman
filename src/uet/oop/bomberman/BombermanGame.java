@@ -34,12 +34,13 @@ public class BombermanGame extends Application {
     public static char[][] currentMap;
     public static int bombRadius = 1;
     public static int bombRate = 1;
+    public static String currentLevel;
 
 
     private Group root;
     public static Screen mainScreen;
     public static GraphicsContext gc;
-    private Canvas canvas;
+    private static Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Entity> grasses = new ArrayList<>();
@@ -54,9 +55,10 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        currentLevel = "Level1";
         running = true;
-        createMap();
-        mainScreen = new Screen(WIDTH, HEIGHT);
+        createMap(currentLevel);
+        mainScreen = Screen.getInstance(WIDTH, HEIGHT);
         // Tao Canvas
         canvas = mainScreen.getCanvas();
         gc = mainScreen.getGraphicsContext();
@@ -84,7 +86,7 @@ public class BombermanGame extends Application {
         timer.start();
 
 
-        player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        player = Bomber.getInstance();
         entities.add(player);
         setKeyListener(scene);
     }
@@ -141,20 +143,20 @@ public class BombermanGame extends Application {
         return HEIGHT * Sprite.SCALED_SIZE;
     }
 
-    public void setMapSize(String size) {
+    public static void setMapSize(String size) {
         String[] arr = size.split("\\s+");
 
         LEVEL = Integer.parseInt(arr[0]);
         HEIGHT = Integer.parseInt(arr[1]);
         WIDTH = Integer.parseInt(arr[2]);
-        mainScreen = new Screen(WIDTH, HEIGHT);
+        mainScreen = Screen.getInstance(WIDTH, HEIGHT);
         currentMap = new char[HEIGHT][WIDTH];
     }
 
-    public void createMap() {
+    public static void createMap(String level) {
         List<String> lines = null;
         try {
-            lines = Files.readAllLines(Paths.get("res/levels/Level1.txt"));
+            lines = Files.readAllLines(Paths.get("res/levels/"+ level + ".txt"));
             setMapSize(lines.get(0));
             lines.remove(0);
             loadMap(lines);
@@ -163,7 +165,7 @@ public class BombermanGame extends Application {
         }
     }
 
-    public void loadMap(List<String> lines) {
+    public static void loadMap(List<String> lines) {
         Entity object = null;
         //store brick for randoming powerup + portal
         ArrayList<Brick> bricks = new ArrayList<>(0);
@@ -216,17 +218,12 @@ public class BombermanGame extends Application {
                         break;
                     }
 
-                    default: {
-                        object = new Grass(i, j, Sprite.grass.getFxImage());
-                        stillObjects.add(object);
-                        break;
-                    }
                 }
             }
         }
         random(bricks);
     }
-    public void random(ArrayList<Brick> bricks) {
+    public static void random(ArrayList<Brick> bricks) {
         Random rand = new Random();
         Entity object;
         ArrayList<Powerup> powerups = new ArrayList<>(0);
@@ -259,7 +256,7 @@ public class BombermanGame extends Application {
         int temp2 = rand.nextInt(6);
         temp = rand.nextInt(bricks.size());
         powerups.get(temp2).setCorodinate(bricks.get(temp).getX() , bricks.get(temp).getY());
-        //item 1 duoc dung thu 3 trong mang stillobjects
+        //item 2 duoc dung thu 3 trong mang stillobjects
         stillObjects.add(2, powerups.get(temp2));
     }
     public static Entity getEntity(int x, int y) {
@@ -278,13 +275,13 @@ public class BombermanGame extends Application {
         return new Grass();
     }
 
-    public void update() {
+    public static void update() {
         entities.forEach(Entity::update);
         bombs.forEach(Bomb::update);
     }
 
-    public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    public static void render() {
+        mainScreen.getGraphicsContext().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         grasses.forEach(g -> g.render(mainScreen));
         for (int i = 0; i < stillObjects.size(); ++i) {
             stillObjects.get(i).render(mainScreen);
@@ -295,5 +292,24 @@ public class BombermanGame extends Application {
         for (int i = 0; i < bombs.size(); ++i) {
             bombs.get(i).render(mainScreen);
         }
+    }
+    public static void nextGame(String currentLevel) {
+        //clear map
+        player = Bomber.getInstance();
+        entities.clear();
+        stillObjects.clear();
+        grasses.clear();
+        bombs.clear();
+        //get next level
+        StringBuilder nextLevel = new StringBuilder(currentLevel);
+        char temp = nextLevel.charAt(nextLevel.length() - 1);
+        temp++;
+        nextLevel.deleteCharAt(nextLevel.length() -1);
+        nextLevel.append(temp);
+        currentLevel = nextLevel.toString();
+        if (currentLevel.equals("Level6")) currentLevel = "Level5";
+        //createMap
+        createMap(currentLevel);
+        entities.add(player);
     }
 }
