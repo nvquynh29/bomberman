@@ -55,7 +55,7 @@ public class Bomb extends Entity {
                 case 0: {
                     for (Entity entity : BombermanGame.entities) {
                         Movable e = (Movable) entity;
-                        if (entity.getMaxY() >= end.getY() && entity.getMaxY() <= begin.getMaxY() + Sprite.SCALED_SIZE
+                        if (entity.getMaxY() > end.getY() && entity.getMaxY() < begin.getMaxY() + Sprite.SCALED_SIZE
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
                             if (e.isAlive()) {
                                 if (e instanceof Bomber) {
@@ -70,7 +70,7 @@ public class Bomb extends Entity {
                 case 1: {
                     for (Entity entity : BombermanGame.entities) {
                         Movable e = (Movable) entity;
-                        if (entity.getX() >= begin.getX() - Sprite.SCALED_SIZE && entity.getX() <= end.getMaxX()
+                        if (entity.getX() > begin.getX() - Sprite.SCALED_SIZE && entity.getX() < end.getMaxX()
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
                             if (e.isAlive()) {
                                 if (e instanceof Bomber) {
@@ -85,7 +85,7 @@ public class Bomb extends Entity {
                 case 2: {
                     for (Entity entity : BombermanGame.entities) {
                         Movable e = (Movable) entity;
-                        if (entity.getY() >= begin.getY() - Sprite.SCALED_SIZE && entity.getY() <= end.getMaxY()
+                        if (entity.getY() > begin.getY() - Sprite.SCALED_SIZE && entity.getY() < end.getMaxY()
                                 && entity.getX() >= end.getX() && entity.getX() <= end.getMaxX()) {
                             if (e.isAlive()) {
                                 if (e instanceof Bomber) {
@@ -100,7 +100,7 @@ public class Bomb extends Entity {
                 case 3: {
                     for (Entity entity : BombermanGame.entities) {
                         Movable e = (Movable) entity;
-                        if (entity.getMaxX() >= end.getX() && entity.getMaxX() <= begin.getMaxX() + Sprite.SCALED_SIZE
+                        if (entity.getMaxX() > end.getX() && entity.getMaxX() < begin.getMaxX() + Sprite.SCALED_SIZE
                                 && entity.getY() >= end.getY() && entity.getY() <= end.getMaxY()) {
                             if (e.isAlive()) {
                                 if (e instanceof Bomber) {
@@ -112,7 +112,6 @@ public class Bomb extends Entity {
                     }
                     break;
                 }
-
             }
         }
     }

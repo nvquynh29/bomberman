@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends Movable {
-    private int speed = 4;
+    private int speed = 8;
     private int step = 0;
-    private final int allowDistance = 4;
+    private final int allowDistance = 8;
     private boolean canMove = false;
     private boolean stillAlive = false;
     private boolean wallPass = false;
