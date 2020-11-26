@@ -9,20 +9,31 @@ import uet.oop.bomberman.entities.movable.Bomber;
 
 
 public class Screen {
-    public int WIDTH, HEIGHT;
+    public static int WIDTH, HEIGHT;
     public int xOffset = 0;
     public int yOffset = 0;
-    private int[] pixels;  // All pixels of screen
+    private static int[] pixels;  // All pixels of screen
 
-    private Canvas canvas;
-    private GraphicsContext gc;
+    private static Canvas canvas;
+    private static GraphicsContext gc;
 
-    public Screen(int width, int height) {
-        WIDTH = width;
-        HEIGHT = height;
-        pixels = new int[WIDTH * HEIGHT];
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        gc = canvas.getGraphicsContext2D();
+    private static Screen INSTANCE;
+
+    private Screen() {
+
+    }
+
+    public static Screen getInstance(int width, int height) {
+        if (INSTANCE == null) {
+            INSTANCE = new Screen();
+            WIDTH = width;
+            HEIGHT = height;
+            pixels = new int[WIDTH * HEIGHT];
+            canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+            gc = canvas.getGraphicsContext2D();
+            return INSTANCE;
+        }
+        else return INSTANCE;
     }
 
     public Canvas getCanvas() {
@@ -63,6 +74,4 @@ public class Screen {
     public void renderEntity(int xp, int yp, Entity entity) {
         gc.drawImage(entity.getImg(), entity.getX(), entity.getY());
     }
-
-
 }

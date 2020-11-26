@@ -22,7 +22,13 @@ public class Bomber extends Movable {
     private boolean wallPass = false;
     private boolean detonatorPower = false;
     public static List<Powerup> powerups = new ArrayList<Powerup>();
+    private static final Bomber INSTANCE = new Bomber(1, 1, Sprite.player_right.getFxImage() );
 
+    public static Bomber getInstance() {
+        INSTANCE.x = Sprite.SCALED_SIZE;
+        INSTANCE.y = Sprite.SCALED_SIZE;
+        return INSTANCE;
+    }
     private Image images[][] = new Image[][]{
             {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()},
             {Sprite.player_right.getFxImage(), Sprite.player_right_1.getFxImage(), Sprite.player_right_2.getFxImage()},
@@ -30,7 +36,7 @@ public class Bomber extends Movable {
             {Sprite.player_left.getFxImage(), Sprite.player_left_1.getFxImage(), Sprite.player_left_2.getFxImage()}
     };
 
-    public Bomber(int x, int y, Image img) {
+    private Bomber(int x, int y, Image img) {
         super(x, y, img);
         alive = true;
     }
