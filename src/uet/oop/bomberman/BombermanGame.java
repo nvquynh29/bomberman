@@ -35,6 +35,7 @@ public class BombermanGame extends Application {
     public static int bombRadius = 1;
     public static int bombRate = 1;
     public static String currentLevel;
+    public static int lives = 3;
 
 
     private Group root;
@@ -309,6 +310,16 @@ public class BombermanGame extends Application {
         currentLevel = nextLevel.toString();
         if (currentLevel.equals("Level6")) currentLevel = "Level5";
         //createMap
+        createMap(currentLevel);
+        entities.add(player);
+    }
+
+    public static void restartGame() {
+        player = Bomber.getInstance();
+        entities.clear();
+        stillObjects.clear();
+        grasses.clear();
+        bombs.clear();
         createMap(currentLevel);
         entities.add(player);
     }

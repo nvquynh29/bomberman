@@ -11,6 +11,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Movable {
@@ -23,6 +24,8 @@ public class Bomber extends Movable {
     private boolean detonatorPower = false;
     public static List<Powerup> powerups = new ArrayList<Powerup>();
     private static final Bomber INSTANCE = new Bomber(1, 1, Sprite.player_right.getFxImage() );
+    private int _timeAfter = 80;
+    private int check = 1;
 
     public static Bomber getInstance() {
         INSTANCE.x = Sprite.SCALED_SIZE;
@@ -266,16 +269,29 @@ public class Bomber extends Movable {
 
     public void kill() {
         alive = false;
+        if (check == 1) {
+            BombermanGame.lives -= 1;
+            System.out.println(BombermanGame.lives);
+            check++;
+        }
     }
 
     @Override
     protected void afterKill() {
-
+        check = 1;
+        if (BombermanGame.lives != 0) {
+            alive = true;
+            BombermanGame.restartGame();
+        }
     }
 
     @Override
     public void update() {
-
+//        clearBombs();
+//        if(!alive) {
+//            afterKill();
+//            return;
+//        }
     }
 
     @Override
@@ -285,8 +301,9 @@ public class Bomber extends Movable {
 
     @Override
     public void render(Screen screen) {
-        if (alive)
+        if (alive) {
             chooseSprite();
+        }
         else {
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
@@ -306,6 +323,8 @@ public class Bomber extends Movable {
                 frameToDisapear--;
             } else {
                 BombermanGame.entities.remove(this);
+                afterKill();
+                frameToDisapear = 24;
             }
         }
         screen.getGraphicsContext().drawImage(img, x, y);
