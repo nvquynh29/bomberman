@@ -42,4 +42,8 @@ public abstract class Movable extends Entity {
     public int getDirection() {
         return direction;
     }
+
+    public void setFrameToDisapear(int frameToDisapear) {
+        this.frameToDisapear = frameToDisapear;
+    }
 }
