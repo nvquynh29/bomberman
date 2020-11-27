@@ -10,7 +10,8 @@ public class Balloom extends Enemy {
 
     public Balloom(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img, 1, 100);
-//        timeAfter = 20;
+        ai = new AILow();
+        direction = ai.calculateDirection();
     }
 
     @Override

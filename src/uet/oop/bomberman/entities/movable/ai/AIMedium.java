@@ -40,19 +40,19 @@ public class AIMedium extends AI{
     }
 
     protected int calculateColDirection() {
-//        if(player.getXTile() < enemy.getXTile())
-//            return 3;
-//        else if(player.getXTile() > enemy.getXTile())
-//            return 1;
+        if(player.getXTile() < enemy.getXTile())
+            return 3;
+        else if(player.getXTile() > enemy.getXTile())
+            return 1;
 
         return -1;
     }
 
     protected int calculateRowDirection() {
-//        if(player.getYTile() < enemy.getYTile())
-//            return 0;
-//        else if(player.getYTile() > enemy.getYTile())
-//            return 2;
+        if(player.getYTile() < enemy.getYTile())
+            return 0;
+        else if(player.getYTile() > enemy.getYTile())
+            return 2;
         return -1;
     }
 }

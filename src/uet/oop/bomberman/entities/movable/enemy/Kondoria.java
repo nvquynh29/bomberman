@@ -2,12 +2,16 @@ package uet.oop.bomberman.entities.movable.enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.movable.Bomber;
+import uet.oop.bomberman.entities.movable.ai.AIMedium;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Kondoria extends Enemy{
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img, 1, 1000);
+        ai = new AIMedium(Bomber.getInstance(), this);
+        direction = ai.calculateDirection();
         wallPass = true;
     }
 

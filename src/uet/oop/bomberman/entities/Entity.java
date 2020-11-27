@@ -68,7 +68,7 @@ public abstract class Entity {
     }
 
     public void render(Screen screen) {
-        screen.getGraphicsContext().drawImage(img, x - screen.xOffset, y);
+        screen.getGraphicsContext().drawImage(img, x, y);
     }
 
 

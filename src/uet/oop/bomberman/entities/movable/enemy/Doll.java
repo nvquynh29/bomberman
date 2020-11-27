@@ -2,6 +2,8 @@ package uet.oop.bomberman.entities.movable.enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.movable.Bomber;
+import uet.oop.bomberman.entities.movable.ai.AILow;
 import uet.oop.bomberman.entities.movable.ai.AIMedium;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -10,6 +12,8 @@ public class Doll extends Enemy {
 
     public Doll(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img, 2, 400);
+        ai = new AILow();
+        direction = ai.calculateDirection();
     }
 
 

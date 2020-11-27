@@ -241,7 +241,8 @@ public class BombermanGame extends Application {
 
                             bricks.get(temp).getY() / Sprite.SCALED_SIZE, Sprite.portal.getFxImage());
         //portal o dau mang stillobjects de duoc render truoc
-        stillObjects.add(0, object);
+//        stillObjects.add(0, object);
+        stillObjects.add(object);
         bricks.remove(temp);
 
         //generate item1;
@@ -249,7 +250,8 @@ public class BombermanGame extends Application {
         temp = rand.nextInt(bricks.size());
         powerups.get(temp1).setCorodinate(bricks.get(temp).getX() , bricks.get(temp).getY());
         //item 1 duoc dung thu 2 trong mang stillobjects
-        stillObjects.add(1, powerups.get(temp1));
+//        stillObjects.add(1, powerups.get(temp1));
+        stillObjects.add(powerups.get(temp1));
         powerups.remove(temp1);
         bricks.remove(temp);
 
@@ -301,14 +303,7 @@ public class BombermanGame extends Application {
         stillObjects.clear();
         grasses.clear();
         bombs.clear();
-        //get next level
-        StringBuilder nextLevel = new StringBuilder(currentLevel);
-        char temp = nextLevel.charAt(nextLevel.length() - 1);
-        temp++;
-        nextLevel.deleteCharAt(nextLevel.length() -1);
-        nextLevel.append(temp);
-        currentLevel = nextLevel.toString();
-        if (currentLevel.equals("Level6")) currentLevel = "Level5";
+
         //createMap
         createMap(currentLevel);
         entities.add(player);

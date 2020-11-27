@@ -24,7 +24,6 @@ public class Bomber extends Movable {
     private boolean detonatorPower = false;
     public static List<Powerup> powerups = new ArrayList<Powerup>();
     private static final Bomber INSTANCE = new Bomber(1, 1, Sprite.player_right.getFxImage() );
-    private int _timeAfter = 80;
     private int check = 1;
 
     public static Bomber getInstance() {
@@ -139,14 +138,6 @@ public class Bomber extends Movable {
         }
         changeStep();
         chooseSprite();
-//        if (!checkCollision(x / Sprite.SCALED_SIZE - 1, y / Sprite.SCALED_SIZE)) {
-//            x -= speed;
-//            changeStep();
-//            chooseSprite();
-////            if (moveScreen(this.x)) {
-////                BombermanGame.gc.translate(speed, 0);
-////            }
-//        }
     }
 
     public void moveRight() {
@@ -157,14 +148,6 @@ public class Bomber extends Movable {
         }
         changeStep();
         chooseSprite();
-//        if (!checkCollision(x / Sprite.SCALED_SIZE + 1, y / Sprite.SCALED_SIZE)) {
-//            x += speed;
-//            changeStep();
-//            chooseSprite();
-////            if (moveScreen(this.x)) {
-////                BombermanGame.gc.translate(-speed, 0);
-////            }
-//        }
     }
 
     public boolean canMoveRight() {
@@ -287,11 +270,7 @@ public class Bomber extends Movable {
 
     @Override
     public void update() {
-//        clearBombs();
-//        if(!alive) {
-//            afterKill();
-//            return;
-//        }
+
     }
 
     @Override
@@ -347,5 +326,4 @@ public class Bomber extends Movable {
 
         powerup.setValues();
     }
-
 }

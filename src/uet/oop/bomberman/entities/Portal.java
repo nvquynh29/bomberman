@@ -19,6 +19,16 @@ public class Portal extends Entity {
     @Override
     public void render(Screen screen) {
         if (this.intersect(BombermanGame.player)) {
+            //get next level
+            StringBuilder nextLevel = new StringBuilder(BombermanGame.currentLevel);
+            char temp = nextLevel.charAt(nextLevel.length() - 1);
+            temp++;
+            nextLevel.deleteCharAt(nextLevel.length() -1);
+            nextLevel.append(temp);
+            BombermanGame.currentLevel = nextLevel.toString();
+            if (BombermanGame.currentLevel.equals("Level6")) {
+                BombermanGame.currentLevel = "Level5";
+            }
             BombermanGame.nextGame(BombermanGame.currentLevel);
         }
         else {

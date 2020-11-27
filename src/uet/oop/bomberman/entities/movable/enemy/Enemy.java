@@ -4,16 +4,12 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.bomb.Bomb;
-import uet.oop.bomberman.entities.bomb.DirectionalExplosion;
 import uet.oop.bomberman.entities.movable.Bomber;
 import uet.oop.bomberman.entities.movable.Movable;
 import uet.oop.bomberman.entities.movable.ai.AI;
-import uet.oop.bomberman.entities.movable.ai.AILow;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
-import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends Movable {
     protected int points;
@@ -33,12 +29,10 @@ public abstract class Enemy extends Movable {
     public Enemy(int x, int y, Image dead, int speed, int points) {
         super(x, y, dead);
 
-        ai = new AILow();
-        direction = ai.calculateDirection();
+//        ai = new AILow();
+//        direction = ai.calculateDirection();
         this.points = points;
         this.speed = speed;
-
-//        timeAfter = 20;
         deadImg = dead;
     }
 
