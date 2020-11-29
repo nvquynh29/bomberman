@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.bomb;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.movable.Bomber;
@@ -148,6 +149,9 @@ public class Bomb extends Entity {
     @Override
     public void render(Screen screen) {
         if (exploded) {
+            if (frameToDisapear == 12) {
+                Audio.MakeSomeNoise(Audio.explosionPath);
+            }
             img = Sprite.bomb_exploded2.getFxImage();
             if (frameToDisapear > 0) {
                 frameToDisapear--;

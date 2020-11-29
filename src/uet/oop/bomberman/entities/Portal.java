@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.entities.movable.Bomber;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -19,6 +20,7 @@ public class Portal extends Entity {
     @Override
     public void render(Screen screen) {
         if (this.intersect(BombermanGame.player)) {
+            Audio.MakeSomeNoise(Audio.portalPath);
             //get next level
             StringBuilder nextLevel = new StringBuilder(BombermanGame.currentLevel);
             char temp = nextLevel.charAt(nextLevel.length() - 1);

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.movable;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.bomb.Bomb;
@@ -252,6 +253,7 @@ public class Bomber extends Movable {
 
     public void kill() {
         alive = false;
+        Audio.MakeSomeNoise(Audio.deadPath);
         if (check == 1) {
             BombermanGame.lives -= 1;
             System.out.println(BombermanGame.lives);

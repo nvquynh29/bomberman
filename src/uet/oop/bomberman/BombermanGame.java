@@ -2,11 +2,21 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.movable.Bomber;
@@ -17,7 +27,10 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.DataTruncation;
@@ -56,6 +69,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        MenuBar menuBar = initMenu();
         currentLevel = "Level1";
         running = true;
         createMap(currentLevel);
@@ -68,10 +82,8 @@ public class BombermanGame extends Application {
         root = new Group();
         root.getChildren().add(canvas);
         root.setManaged(false);
-
         // Tao scene
         Scene scene = new Scene(root);
-
         // Them scene vao stage
         stage.setScene(scene);
         stage.setTitle("Bomberman - JTeam");
@@ -85,7 +97,6 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
 
         player = Bomber.getInstance();
         entities.add(player);
@@ -127,6 +138,20 @@ public class BombermanGame extends Application {
                         bombs.add(bomb);
                     }
                     break;
+                }
+                case P: {
+                    try {
+                        Stage newStage = new Stage();
+//                        Parent root = FXMLLoader.load(getClass().getResource("C:\\Users\\admin\\Desktop\\bomberMan\\bomberman\\src\\uet\\oop\\bomberman\\otherScene\\ChooseLevel.fxml"));
+                        URL url = new File("C:\\Users\\admin\\Desktop\\bomberMan\\bomberman\\src\\uet\\oop\\bomberman\\otherScene\\ChooseLevel.fxml").toURI().toURL();
+                        Parent root = FXMLLoader.load(url);
+                        Scene addScene = new Scene(root);
+                        newStage.setScene(addScene);
+                        newStage.setTitle("Entering Level");
+                        newStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -317,5 +342,43 @@ public class BombermanGame extends Application {
         bombs.clear();
         createMap(currentLevel);
         entities.add(player);
+    }
+
+    private MenuBar initMenu() {
+        MenuBar menuBar = new MenuBar();
+
+        Menu game = new Menu("Game");
+        Menu option = new Menu("Options");
+        Menu help = new Menu("Help");
+
+        MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+        game.getItems().addAll(exit);
+
+        MenuItem chooseLevel = new MenuItem("Choose Level");
+        chooseLevel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    Stage newStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/otherScene/ChooseLevel.fxml"));
+                    Scene addScene = new Scene(root);
+                    newStage.setScene(addScene);
+                    newStage.setTitle("Entering Level");
+                    newStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        option.getItems().add(chooseLevel);
+
+        menuBar.getMenus().addAll(game, option, help);
+        return menuBar;
     }
 }

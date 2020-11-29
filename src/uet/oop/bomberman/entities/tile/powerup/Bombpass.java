@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.tile.powerup;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Bombpass extends Powerup {
@@ -26,8 +27,8 @@ public class Bombpass extends Powerup {
         if(BombermanGame.player.intersect(this)) {
             BombermanGame.player.addPowerUp(this);
             remove();
-            System.out.println("removed");
             BombermanGame.stillObjects.remove(this);
+            Audio.MakeSomeNoise(Audio.buffSoundPath);
         }
         screen.getGraphicsContext().drawImage(img, x, y);
     }
