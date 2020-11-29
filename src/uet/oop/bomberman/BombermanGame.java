@@ -15,6 +15,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import uet.oop.bomberman.audio.Audio;
 import uet.oop.bomberman.entities.*;
@@ -59,9 +63,10 @@ public class BombermanGame extends Application {
     public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Entity> grasses = new ArrayList<>();
     public static List<Bomb> bombs = new ArrayList<>();
+    public static AnimationTimer timer;
 
-    private boolean running = false;
-    private boolean paused = true;
+    private static boolean running = true;
+    private static boolean paused = false;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -89,7 +94,7 @@ public class BombermanGame extends Application {
         stage.setTitle("Bomberman - JTeam");
         stage.setResizable(false);
         stage.show();
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 render();
@@ -143,7 +148,7 @@ public class BombermanGame extends Application {
                     try {
                         Stage newStage = new Stage();
 //                        Parent root = FXMLLoader.load(getClass().getResource("C:\\Users\\admin\\Desktop\\bomberMan\\bomberman\\src\\uet\\oop\\bomberman\\otherScene\\ChooseLevel.fxml"));
-                        URL url = new File("C:\\Users\\admin\\Desktop\\bomberMan\\bomberman\\src\\uet\\oop\\bomberman\\otherScene\\ChooseLevel.fxml").toURI().toURL();
+                        URL url = new File("src/uet/oop/bomberman/otherScene/ChooseLevel.fxml").toURI().toURL();
                         Parent root = FXMLLoader.load(url);
                         Scene addScene = new Scene(root);
                         newStage.setScene(addScene);
@@ -332,6 +337,8 @@ public class BombermanGame extends Application {
         //createMap
         createMap(currentLevel);
         entities.add(player);
+
+        resetItem(player);
     }
 
     public static void restartGame() {
@@ -340,8 +347,11 @@ public class BombermanGame extends Application {
         stillObjects.clear();
         grasses.clear();
         bombs.clear();
+
         createMap(currentLevel);
         entities.add(player);
+
+        resetItem(player);
     }
 
     private MenuBar initMenu() {
@@ -381,4 +391,38 @@ public class BombermanGame extends Application {
         menuBar.getMenus().addAll(game, option, help);
         return menuBar;
     }
+
+    public static void resetItem (Bomber bomber) {
+        Bomber.powerups.clear();
+        bomber.setSpeed(4);
+        bomber.setWallPass(false);
+        bomber.setStillAlive(false);
+        bomber.setDetonatorPower(false);
+        bombRate = 1;
+        bombRadius = 1;
+    }
+
+    public static void drawEndGame () {
+        mainScreen.getGraphicsContext().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.setFill(Color.WHITE);
+        gc.setTextAlign(TextAlignment.CENTER);
+        Font font = new Font("Arial", 48);
+        gc.setFont(font);
+        gc.fillText("GAME OVER", getRealWidth() / 2, getRealHeight() / 2);
+        timer.stop();
+    }
+
+    public static void drawLevelGame () { //TODO: screen Level
+        mainScreen.getGraphicsContext().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.setFill(Color.WHITE);
+        gc.setTextAlign(TextAlignment.CENTER);
+        Font font = new Font("Arial", 48);
+        gc.setFont(font);
+        gc.fillText(currentLevel, getRealWidth() / 2, getRealHeight() / 2);
+    }
+
 }

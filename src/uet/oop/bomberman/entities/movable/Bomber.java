@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Movable {
-    private int speed = 8;
+    private int speed = 4;
     private int step = 0;
     private final int allowDistance = 8;
     private boolean canMove = false;
@@ -267,6 +267,10 @@ public class Bomber extends Movable {
         if (BombermanGame.lives != 0) {
             alive = true;
             BombermanGame.restartGame();
+        }
+        else {
+            img = null;
+            BombermanGame.drawEndGame();
         }
     }
 
