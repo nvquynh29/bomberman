@@ -19,23 +19,34 @@ public class Portal extends Entity {
 
     @Override
     public void render(Screen screen) {
-        if (this.intersect(BombermanGame.player)) {
-            Audio.MakeSomeNoise(Audio.portalPath);
-            //get next level
-            StringBuilder nextLevel = new StringBuilder(BombermanGame.currentLevel);
-            char temp = nextLevel.charAt(nextLevel.length() - 1);
-            temp++;
-            nextLevel.deleteCharAt(nextLevel.length() -1);
-            nextLevel.append(temp);
-            BombermanGame.currentLevel = nextLevel.toString();
-            if (BombermanGame.currentLevel.equals("Level6")) {
-                BombermanGame.currentLevel = "Level5";
+//        if (BombermanGame.entities.size() == 1) {
+            if (this.isCollided(BombermanGame.player)) {
+                Audio.MakeSomeNoise(Audio.portalPath);
+                //get next level
+                StringBuilder nextLevel = new StringBuilder(BombermanGame.currentLevel);
+                char temp = nextLevel.charAt(nextLevel.length() - 1);
+                temp++;
+                nextLevel.deleteCharAt(nextLevel.length() -1);
+                nextLevel.append(temp);
+                BombermanGame.currentLevel = nextLevel.toString();
+                if (BombermanGame.currentLevel.equals("Level6")) {
+                    BombermanGame.currentLevel = "Level5";
+                }
+                BombermanGame.nextGame(BombermanGame.currentLevel);
             }
-            BombermanGame.nextGame(BombermanGame.currentLevel);
-        }
+//        }
         else {
-            screen.getGraphicsContext().drawImage(img, x - screen.xOffset, y);
+            screen.getGraphicsContext().drawImage(img, x, y);
         }
     }
 
+    public boolean isCollided(Entity e) {
+        if (e != null) {
+            if ((getMaxX() <= e.getX() + 8) || (getMaxY() - 8 <= e.getY())
+                    || (e.getMaxX() - 8 <= x) || (e.getMaxY() - 8 <= y)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -34,4 +34,12 @@ public abstract class Powerup extends Entity {
         this.x = x;
         this.y = y;
     }
+
+    public boolean isCollided(Entity e) {
+        if ((getMaxX() <= e.getX() + 8) || (getMaxY() - 8 <= e.getY())
+                || (e.getMaxX() - 8 <= x) || (e.getMaxY() - 8 <= y)) {
+            return false;
+        }
+        return true;
+    }
 }

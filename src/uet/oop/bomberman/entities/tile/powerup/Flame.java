@@ -24,7 +24,7 @@ public class Flame extends Powerup {
 
     @Override
     public void render(Screen screen) {
-        if(BombermanGame.player.intersect(this)) {
+        if(this.isCollided(BombermanGame.player)) {
             BombermanGame.player.addPowerUp(this);
             remove();
             BombermanGame.stillObjects.remove(this);

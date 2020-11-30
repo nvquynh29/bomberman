@@ -105,9 +105,6 @@ public class Bomber extends Movable {
     }
 
     public void changeStep() {
-        if (step == 2) {
-            step = 0;
-        }
         step++;
     }
 
@@ -320,7 +317,7 @@ public class Bomber extends Movable {
             if (!moving) {
                 img = images[direction][0];
             } else {
-                img = images[direction][getStep()];
+                img = images[direction][((getStep() % 6) / 3) + 1];
             }
         }
     }

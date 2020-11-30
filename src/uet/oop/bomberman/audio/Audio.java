@@ -15,13 +15,13 @@ public class Audio {
     public static final String portalPath = "res/audio/portal.wav";
     public static void MakeSomeNoise(String path) {
 
-        //Instantiating Media class
-        Media media = new Media(new File(path).toURI().toString());
-
-        //Instantiating MediaPlayer class
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-
-        //by setting this property to true, the audio will be played
-        mediaPlayer.setAutoPlay(true);
+//        //Instantiating Media class
+//        Media media = new Media(new File(path).toURI().toString());
+//
+//        //Instantiating MediaPlayer class
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//
+//        //by setting this property to true, the audio will be played
+//        mediaPlayer.setAutoPlay(true);
     }
 }
