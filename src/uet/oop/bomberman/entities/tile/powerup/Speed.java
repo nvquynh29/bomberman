@@ -17,7 +17,7 @@ public class Speed extends Powerup {
     @Override
     public void setValues() {
         active = true;
-        BombermanGame.player.setSpeed(BombermanGame.player.getSpeed() + 4);
+        BombermanGame.player.setSpeed(8);
     }
 
     @Override

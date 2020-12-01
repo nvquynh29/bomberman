@@ -59,6 +59,8 @@ public abstract class Entity {
         return y + Sprite.SCALED_SIZE;
     }
 
+
+
     public int getXTile() {
         return Coordinates.pixelToTile(x + Sprite.SCALED_SIZE / 2);
     }
@@ -107,4 +109,11 @@ public abstract class Entity {
                 || intersectUp(other) || intersectDown(other));
     }
 
+    public boolean isCollided(Entity e) {
+        if ((getMaxX() <= e.getX() + 8) || (getMaxY() - 8 <= e.getY())
+                || (e.getMaxX() - 8 <= x) || (e.getMaxY() - 8 <= y)) {
+            return false;
+        }
+        return true;
+    }
 }

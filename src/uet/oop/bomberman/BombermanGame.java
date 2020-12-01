@@ -82,6 +82,10 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = mainScreen.getCanvas();
         gc = mainScreen.getGraphicsContext();
+        player = Bomber.getInstance();
+
+        player.input = new ArrayList<>(0);
+        for (int i=0; i<4; i++) player.input.add(false);
 
         // Tao root container
         root = new Group();
@@ -103,7 +107,6 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        player = Bomber.getInstance();
         entities.add(player);
         setKeyListener(scene);
     }
@@ -112,19 +115,27 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(key -> {
             switch (key.getCode()) {
                 case UP : case W: {
-                    player.moveUp();
+                    player.input.set(0, true);
+                    player.moving = true;
+                    player.direction = 0;
                     break;
                 }
                 case DOWN: case S: {
-                    player.moveDown();
+                    player.input.set(2, true);
+                    player.moving = true;
+                    player.direction = 2;
                     break;
                 }
                 case LEFT: case A: {
-                    player.moveLeft();
+                    player.input.set(3, true);
+                    player.moving = true;
+                    player.direction = 3;
                     break;
                 }
                 case RIGHT: case D: {
-                    player.moveRight();
+                    player.input.set(1, true);
+                    player.moving = true;
+                    player.direction = 1;
                     break;
                 }
                 case B: {
@@ -163,6 +174,28 @@ public class BombermanGame extends Application {
 
         scene.setOnKeyReleased(key -> {
             player.setMove(false);
+            switch (key.getCode()) {
+                case UP : case W: {
+                    player.input.set(0, false);
+                    player.moving = false;
+                    break;
+                }
+                case DOWN: case S: {
+                    player.input.set(2, false);
+                    player.moving = false;
+                    break;
+                }
+                case LEFT: case A: {
+                    player.input.set(3, false);
+                    player.moving = false;
+                    break;
+                }
+                case RIGHT: case D: {
+                    player.input.set(1, false);
+                    player.moving = false;
+                    break;
+                }
+            }
         });
     }
 
