@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.tile.powerup;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.audio.Audio;
+import uet.oop.bomberman.entities.movable.Bomber;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Speed extends Powerup {
@@ -17,7 +18,7 @@ public class Speed extends Powerup {
     @Override
     public void setValues() {
         active = true;
-        BombermanGame.player.setSpeed(8);
+        BombermanGame.player.setSpeed(Bomber.getInstance().getSpeed() * 2);
     }
 
     @Override

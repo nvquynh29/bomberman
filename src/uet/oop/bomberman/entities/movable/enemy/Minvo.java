@@ -9,7 +9,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Minvo extends Enemy{
     public Minvo(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img, 4, 800);
+        super(xUnit, yUnit, img, 2, 800);
         ai = new AIMedium(Bomber.getInstance(), this);
         direction = ai.calculateDirection();
     }

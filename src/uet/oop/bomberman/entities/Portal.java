@@ -19,7 +19,7 @@ public class Portal extends Entity {
 
     @Override
     public void render(Screen screen) {
-//        if (BombermanGame.entities.size() == 1) {
+        if (BombermanGame.entities.size() == 1) {
             if (this.isCollided(BombermanGame.player)) {
                 Audio.MakeSomeNoise(Audio.portalPath);
                 //get next level
@@ -34,10 +34,8 @@ public class Portal extends Entity {
                 }
                 BombermanGame.nextGame(BombermanGame.currentLevel);
             }
-//        }
-        else {
-            screen.getGraphicsContext().drawImage(img, x, y);
         }
+        screen.getGraphicsContext().drawImage(img, x, y);
     }
 
     public boolean isCollided(Entity e) {

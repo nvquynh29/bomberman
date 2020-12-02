@@ -156,9 +156,8 @@ public class BombermanGame extends Application {
                     break;
                 }
                 case P: {
+                    Stage newStage = new Stage();
                     try {
-                        Stage newStage = new Stage();
-//                        Parent root = FXMLLoader.load(getClass().getResource("C:\\Users\\admin\\Desktop\\bomberMan\\bomberman\\src\\uet\\oop\\bomberman\\otherScene\\ChooseLevel.fxml"));
                         URL url = new File("src/uet/oop/bomberman/otherScene/ChooseLevel.fxml").toURI().toURL();
                         Parent root = FXMLLoader.load(url);
                         Scene addScene = new Scene(root);
@@ -304,8 +303,8 @@ public class BombermanGame extends Application {
 
                             bricks.get(temp).getY() / Sprite.SCALED_SIZE, Sprite.portal.getFxImage());
         //portal o dau mang stillobjects de duoc render truoc
-//        stillObjects.add(0, object);
-        stillObjects.add(object);
+        stillObjects.add(0, object);
+//        stillObjects.add(object);
         bricks.remove(temp);
 
         //generate item1;
@@ -313,8 +312,8 @@ public class BombermanGame extends Application {
         temp = rand.nextInt(bricks.size());
         powerups.get(temp1).setCorodinate(bricks.get(temp).getX() , bricks.get(temp).getY());
         //item 1 duoc dung thu 2 trong mang stillobjects
-//        stillObjects.add(1, powerups.get(temp1));
-        stillObjects.add(powerups.get(temp1));
+        stillObjects.add(1, powerups.get(temp1));
+//        stillObjects.add(powerups.get(temp1));
         powerups.remove(temp1);
         bricks.remove(temp);
 
@@ -326,19 +325,34 @@ public class BombermanGame extends Application {
         stillObjects.add(2, powerups.get(temp2));
     }
     public static Entity getEntity(int x, int y) {
-        for (Entity entity : entities) {
-            if (entity.getX() == x && entity.getY() == y) {
-                return entity;
+        if (getBrick(x, y) != null) {
+            return getBrick(x, y);
+        } else {
+            for (Entity entity : stillObjects) {
+                if (entity.getX() == x && entity.getY() == y) {
+                    return entity;
+                }
             }
-        }
 
+            for (Entity entity : entities) {
+                if (entity.getX() == x && entity.getY() == y) {
+                    return entity;
+                }
+            }
+
+            return new Grass();
+        }
+    }
+
+    public static Brick getBrick(int x, int y) {
         for (Entity entity : stillObjects) {
-            if (entity.getX() == x && entity.getY() == y) {
-                return entity;
+            if (entity instanceof Brick) {
+                if (entity.getX() == x && entity.getY() == y) {
+                    return (Brick) entity;
+                }
             }
         }
-
-        return new Grass();
+        return null;
     }
 
     public static void update() {
@@ -368,6 +382,7 @@ public class BombermanGame extends Application {
         bombs.clear();
 
         //createMap
+        drawLevelGame();
         createMap(currentLevel);
         entities.add(player);
 
@@ -427,7 +442,7 @@ public class BombermanGame extends Application {
 
     public static void resetItem (Bomber bomber) {
         Bomber.powerups.clear();
-        bomber.setSpeed(4);
+        bomber.setSpeed(bomber.getSpeed());
         bomber.setWallPass(false);
         bomber.setStillAlive(false);
         bomber.setDetonatorPower(false);

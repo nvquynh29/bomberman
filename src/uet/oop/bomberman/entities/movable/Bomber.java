@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Movable {
-    private int speed = 8;
+    private int speed = 4;
     private int step = 0;
     private final int allowDistance = 8;
     private boolean canMove = false;
@@ -24,7 +24,7 @@ public class Bomber extends Movable {
     private boolean wallPass = false;
     private boolean detonatorPower = false;
     public static List<Powerup> powerups = new ArrayList<Powerup>();
-    private static final Bomber INSTANCE = new Bomber(1, 1, Sprite.player_right.getFxImage() );
+    private static final Bomber INSTANCE = new Bomber(1, 1, Sprite.player_right.getFxImage());
     private int check = 1;
 
     public ArrayList<Boolean> input;
@@ -34,12 +34,6 @@ public class Bomber extends Movable {
         INSTANCE.y = Sprite.SCALED_SIZE;
         return INSTANCE;
     }
-    private Image images[][] = new Image[][]{
-            {Sprite.player_up.getFxImage(), Sprite.player_up_1.getFxImage(), Sprite.player_up_2.getFxImage()},
-            {Sprite.player_right.getFxImage(), Sprite.player_right_1.getFxImage(), Sprite.player_right_2.getFxImage()},
-            {Sprite.player_down.getFxImage(), Sprite.player_down_1.getFxImage(), Sprite.player_down_2.getFxImage()},
-            {Sprite.player_left.getFxImage(), Sprite.player_left_1.getFxImage(), Sprite.player_left_2.getFxImage()}
-    };
 
     private Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -124,12 +118,8 @@ public class Bomber extends Movable {
                 setImage(Sprite.player_up_1.getFxImage());
                 Audio.MakeSomeNoise(Audio.foot2Path);
                 break;
-//            case 10:
-//                setImage(Sprite.player_up_2.getFxImage());
-//                Audio.MakeSomeNoise(Audio.foot1Path);
-//                break;
         }
-        if (step > 20000000) step =0;
+        if (step > 20000000) step = 0;
     }
 
     public void moveDown() {
@@ -148,12 +138,8 @@ public class Bomber extends Movable {
                 setImage(Sprite.player_down_1.getFxImage());
                 Audio.MakeSomeNoise(Audio.foot2Path);
                 break;
-//            case 10:
-//                setImage(Sprite.player_down_2.getFxImage());
-//                Audio.MakeSomeNoise(Audio.foot1Path);
-//                break;
         }
-        if (step > 20000000) step =0;
+        if (step > 20000000) step = 0;
     }
 
     public void moveLeft() {
@@ -172,12 +158,8 @@ public class Bomber extends Movable {
                 setImage(Sprite.player_left_1.getFxImage());
                 Audio.MakeSomeNoise(Audio.foot2Path);
                 break;
-//            case 10:
-//                setImage(Sprite.player_left_2.getFxImage());
-//                Audio.MakeSomeNoise(Audio.foot1Path);
-//                break;
         }
-        if (step > 20000000) step =0;
+        if (step > 20000000) step = 0;
     }
 
     public void moveRight() {
@@ -196,23 +178,19 @@ public class Bomber extends Movable {
                 setImage(Sprite.player_right_1.getFxImage());
                 Audio.MakeSomeNoise(Audio.foot2Path);
                 break;
-//            case 10:
-//                setImage(Sprite.player_right_2.getFxImage());
-//                Audio.MakeSomeNoise(Audio.foot1Path);
-//                break;
         }
-        if (step > 20000000) step =0;
+        if (step > 20000000) step = 0;
     }
 
     public boolean canMoveRight() {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || (entity instanceof Brick && !wallPass)) {
                 if (entity.intersectLeft(this)) {
-                    if(entity.getMaxY() - getY() <= allowDistance){
-                        y+= entity.getMaxY() - getY();
+                    if (entity.getMaxY() - getY() <= allowDistance) {
+                        y += entity.getMaxY() - getY();
                     }
-                    if(getMaxY() - entity.getY() <= allowDistance){
-                        y-= getMaxY() - entity.getY();
+                    if (getMaxY() - entity.getY() <= allowDistance) {
+                        y -= getMaxY() - entity.getY();
                     }
                     return false;
                 }
@@ -232,11 +210,11 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || (entity instanceof Brick && !wallPass)) {
                 if (entity.intersectRight(this)) {
-                    if(entity.getMaxY() - getY() <= allowDistance){
-                        y+= entity.getMaxY() - getY();
+                    if (entity.getMaxY() - getY() <= allowDistance) {
+                        y += entity.getMaxY() - getY();
                     }
-                    if(getMaxY() - entity.getY() <= allowDistance){
-                        y-= getMaxY() - entity.getY();
+                    if (getMaxY() - entity.getY() <= allowDistance) {
+                        y -= getMaxY() - entity.getY();
                     }
                     return false;
                 }
@@ -256,11 +234,11 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || (entity instanceof Brick && !wallPass)) {
                 if (entity.intersectDown(this)) {
-                    if(entity.getMaxX() - getX() <= allowDistance){
-                        x+=entity.getMaxX()-getX();
+                    if (entity.getMaxX() - getX() <= allowDistance) {
+                        x += entity.getMaxX() - getX();
                     }
-                    if(getMaxX() -  entity.getX() <= allowDistance + 5){
-                        x-=getMaxX() - entity.getX();
+                    if (getMaxX() - entity.getX() <= allowDistance + 5) {
+                        x -= getMaxX() - entity.getX();
                     }
                     return false;
                 }
@@ -280,11 +258,11 @@ public class Bomber extends Movable {
         for (Entity entity : BombermanGame.stillObjects) {
             if (entity instanceof Wall || (entity instanceof Brick && !wallPass)) {
                 if (entity.intersectUp(this)) {
-                    if(entity.getMaxX() - getX() <= allowDistance){
-                        x+=entity.getMaxX()-getX();
+                    if (entity.getMaxX() - getX() <= allowDistance) {
+                        x += entity.getMaxX() - getX();
                     }
-                    if(getMaxX() -  entity.getX() <= allowDistance + 5){
-                        x-=getMaxX() - entity.getX();
+                    if (getMaxX() - entity.getX() <= allowDistance + 5) {
+                        x -= getMaxX() - entity.getX();
                     }
                     return false;
                 }
@@ -305,7 +283,6 @@ public class Bomber extends Movable {
         Audio.MakeSomeNoise(Audio.deadPath);
         if (check == 1) {
             BombermanGame.lives -= 1;
-            System.out.println(BombermanGame.lives);
             check++;
         }
     }
@@ -316,8 +293,7 @@ public class Bomber extends Movable {
         if (BombermanGame.lives != 0) {
             alive = true;
             BombermanGame.restartGame();
-        }
-        else {
+        } else {
             img = null;
             BombermanGame.drawEndGame();
         }
@@ -326,7 +302,7 @@ public class Bomber extends Movable {
     @Override
     public void update() {
         if (moving) {
-            for (int i = 0; i<input.size(); i++) {
+            for (int i = 0; i < input.size(); i++) {
                 if (input.get(i) == true) {
                     if (i == 0) moveUp();
                     if (i == 1) moveRight();
@@ -336,19 +312,20 @@ public class Bomber extends Movable {
             }
         } else {
             switch (direction) {
-
-                    case 3:
-                        setImage(Sprite.player_left.getFxImage());
-                        break;
-                    case 1:
-                        setImage(Sprite.player_right.getFxImage());
-                        break;
-                    case 0:
-                        setImage(Sprite.player_up.getFxImage());
-                        break;
-                    default:
-                        setImage(Sprite.player_down.getFxImage());
-
+                case 3:
+                    setImage(Sprite.player_left.getFxImage());
+                    break;
+                case 1:
+                    setImage(Sprite.player_right.getFxImage());
+                    break;
+                case 0:
+                    setImage(Sprite.player_up.getFxImage());
+                    break;
+                case 2:
+                    setImage(Sprite.player_down.getFxImage());
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -360,47 +337,37 @@ public class Bomber extends Movable {
 
     @Override
     public void render(Screen screen) {
-        if (alive) {
-//            chooseSprite();
-        }
-        else {
+        if (!alive) {
+            direction = -1;
+            moving = false;
             if (frameToDisapear > 0) {
                 switch (frameToDisapear) {
-                    case 24: {
+                    case 48: {
                         img = Sprite.player_dead1.getFxImage();
                         break;
                     }
-                    case 16: {
+                    case 32: {
                         img = Sprite.player_dead2.getFxImage();
                         break;
                     }
-                    case 8: {
+                    case 16: {
                         img = Sprite.player_dead3.getFxImage();
                         break;
                     }
                 }
                 frameToDisapear--;
             } else {
+                img = Sprite.player_right.getFxImage();
                 BombermanGame.entities.remove(this);
                 afterKill();
-                frameToDisapear = 24;
+                frameToDisapear = 48;
             }
         }
         screen.getGraphicsContext().drawImage(img, x, y);
     }
 
-    public void chooseSprite() {
-        if (direction >= 0) {
-            if (!moving) {
-                img = images[direction][0];
-            } else {
-                img = images[direction][((getStep() % 6) / 3) + 1];
-            }
-        }
-    }
-
     public void addPowerUp(Powerup powerup) {
-        if(powerup.isRemoved()) return;
+        if (powerup.isRemoved()) return;
 
         powerups.add(powerup);
 

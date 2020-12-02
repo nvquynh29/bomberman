@@ -29,8 +29,6 @@ public abstract class Enemy extends Movable {
     public Enemy(int x, int y, Image dead, int speed, int points) {
         super(x, y, dead);
 
-//        ai = new AILow();
-//        direction = ai.calculateDirection();
         this.points = points;
         this.speed = speed;
         deadImg = dead;
